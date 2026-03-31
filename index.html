@@ -1,1 +1,753 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stand With Palestine · Berdiri Bersama Palestina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #0a0a0a;
+      --white:   #f5f0e8;
+      --green:   #1a6b2e;
+      --green2:  #2d9e4e;
+      --red:     #c0392b;
+      --red2:    #e74c3c;
+      --gold:    #d4a843;
+      --cream:   #faf5ea;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, #1a3d24 0%, #0a0a0a 70%);
+    }
+
+    /* Animated keffiyeh-pattern overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(26,107,46,.07) 0px, rgba(26,107,46,.07) 2px, transparent 2px, transparent 20px),
+        repeating-linear-gradient(-45deg, rgba(26,107,46,.07) 0px, rgba(26,107,46,.07) 2px, transparent 2px, transparent 20px);
+      animation: patternShift 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes patternShift {
+      0%   { background-position: 0 0, 0 0; }
+      100% { background-position: 200px 200px, -200px 200px; }
+    }
+
+    /* Flag stripe accent */
+    .flag-stripe {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(to right,
+        #0a0a0a 25%, var(--white) 25%, var(--white) 50%,
+        var(--green) 50%, var(--green) 75%, var(--red) 75%);
+    }
+
+    .hero-badge {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      letter-spacing: .25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp .8s .2s forwards;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 9vw, 8rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp .9s .4s forwards;
+    }
+
+    .hero h1 span.highlight {
+      color: var(--green2);
+      display: block;
+    }
+
+    .hero-arabic {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      color: var(--gold);
+      margin-top: .75rem;
+      opacity: 0;
+      animation: fadeUp .9s .6s forwards;
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(245,240,232,.75);
+      margin-top: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .9s .8s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .9s 1s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .85rem 2rem;
+      border-radius: 2px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .05em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+
+    .btn-primary { background: var(--green); color: var(--white); border: 2px solid var(--green2); }
+    .btn-primary:hover { background: var(--green2); }
+
+    .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--white); }
+    .btn-outline:hover { background: rgba(245,240,232,.1); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.4);
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint .arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(245,240,232,.4));
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .stat {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green2);
+      transform: scaleX(0);
+      transition: transform .4s;
+      transform-origin: left;
+    }
+    .stat:hover::before { transform: scaleX(1); }
+
+    .stat-num {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      color: var(--red2);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.5);
+      margin-top: .5rem;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem); }
+
+    .section-eyebrow {
+      font-size: .78rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h2.section-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    h2.section-title em {
+      font-style: normal;
+      color: var(--green2);
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      background: #0f1a13;
+    }
+
+    @media (max-width: 768px) {
+      .about { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(245,240,232,.8);
+      margin-top: 1.5rem;
+    }
+
+    .about-visual {
+      position: relative;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Stylised Palestine map silhouette via CSS */
+    .map-art {
+      width: 220px;
+      height: 320px;
+      background: var(--green);
+      clip-path: polygon(
+        52% 0%, 62% 4%, 72% 8%, 80% 14%, 86% 22%,
+        90% 32%, 88% 42%, 82% 50%, 76% 58%, 78% 68%,
+        74% 78%, 66% 88%, 54% 96%, 46% 100%, 38% 96%,
+        28% 88%, 22% 76%, 18% 64%, 22% 52%, 16% 42%,
+        14% 32%, 18% 22%, 26% 14%, 36% 8%, 44% 3%
+      );
+      position: relative;
+      box-shadow: 0 0 60px rgba(45,158,78,.25);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(45,158,78,.2); }
+      50%       { box-shadow: 0 0 80px rgba(45,158,78,.4); }
+    }
+
+    .map-label {
+      position: absolute;
+      font-family: 'Amiri', serif;
+      font-size: 1.6rem;
+      color: rgba(255,255,255,.9);
+      pointer-events: none;
+    }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background: var(--green);
+      text-align: center;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 8vw, 12rem);
+    }
+
+    blockquote {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+      line-height: 1.5;
+      color: var(--cream);
+      position: relative;
+    }
+
+    blockquote::before {
+      content: '\201C';
+      font-size: 8rem;
+      color: rgba(255,255,255,.12);
+      position: absolute;
+      top: -2rem;
+      left: -1rem;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .quote-attr {
+      margin-top: 1.5rem;
+      font-size: .9rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+    }
+
+    /* ── LINKS / ACTIONS ── */
+    .links-section { background: #0a0a0a; }
+
+    .links-intro {
+      max-width: 600px;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(245,240,232,.7);
+      margin-top: 1.2rem;
+    }
+
+    .links-grid {
+      margin-top: 3.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .link-card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 4px;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      transition: border-color .25s, background .25s, transform .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::after {
+      content: '↗';
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 1.2rem;
+      color: var(--green2);
+      opacity: 0;
+      transition: opacity .25s, transform .25s;
+    }
+
+    .link-card:hover {
+      border-color: var(--green2);
+      background: #0f1a13;
+      transform: translateY(-4px);
+    }
+
+    .link-card:hover::after { opacity: 1; transform: translate(2px, -2px); }
+
+    .link-card-cat {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .link-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .link-card-desc {
+      font-size: .88rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(245,240,232,.55);
+    }
+
+    /* Category color accents */
+    .link-card[data-cat="bantuan"] .link-card-cat { color: var(--red2); }
+    .link-card[data-cat="media"]   .link-card-cat { color: #5bb8f5; }
+    .link-card[data-cat="hak"]     .link-card-cat { color: #c47cf3; }
+    .link-card[data-cat="aksi"]    .link-card-cat { color: var(--gold); }
+
+    /* ── VALUES ── */
+    .values-section { background: #0d0d0d; }
+
+    .values-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-item { border-left: 3px solid var(--green2); padding-left: 1.25rem; }
+
+    .value-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+
+    .value-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: .4rem;
+    }
+
+    .value-desc {
+      font-size: .88rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(245,240,232,.55);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060606;
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 3rem clamp(1.5rem, 5vw, 5rem);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      font-family: 'Amiri', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+
+    .footer-note {
+      font-size: .82rem;
+      color: rgba(245,240,232,.35);
+      max-width: 420px;
+      line-height: 1.6;
+    }
+
+    .footer-flag {
+      display: flex;
+      border-radius: 2px;
+      overflow: hidden;
+      height: 28px;
+    }
+
+    .footer-flag span {
+      flex: 1;
+      min-width: 14px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s, transform .7s;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 2.5rem;
+      background: rgba(10,10,10,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .nav-brand {
+      font-family: 'Amiri', serif;
+      font-size: 1.25rem;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .82rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.6);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green2); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">🕌 FreePalestine</a>
+  <ul class="nav-links">
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#links">Aksi</a></li>
+    <li><a href="#donasi">Donasi</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="flag-stripe"></div>
+  <p class="hero-badge">Solidaritas Global · Free Palestine</p>
+  <h1>
+    Berdiri<br/>
+    <span class="highlight">Bersama</span><br/>
+    Palestina
+  </h1>
+  <p class="hero-arabic">🇵🇸 فلسطين حرة · فلسطين تنتصر</p>
+  <p class="hero-sub">
+    Suara kita adalah senjata damai. Bersama kita dukung hak asasi manusia, kemerdekaan, dan keadilan bagi rakyat Palestina yang berjuang setiap hari.
+  </p>
+  <div class="hero-cta">
+    <a href="#links" class="btn btn-primary">🤲 Cara Membantu</a>
+    <a href="#donasi" class="btn btn-outline">💚 Donasi Sekarang</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Gulir</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal" id="tentang">
+  <div class="stat">
+    <div class="stat-num">75+</div>
+    <div class="stat-label">Tahun Penjajahan</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5.9 Jt</div>
+    <div class="stat-label">Pengungsi Terdaftar</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">14 Jt</div>
+    <div class="stat-label">Rakyat Palestina</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">140+</div>
+    <div class="stat-label">Negara Dukung</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about reveal">
+  <div class="about-text">
+    <p class="section-eyebrow">Kenali Kebenaran</p>
+    <h2 class="section-title">Ini adalah <em>Keadilan</em>, bukan politik.</h2>
+    <p>Palestina adalah isu kemanusiaan — soal nyawa, martabat, dan hak untuk hidup bebas. Rakyat Palestina telah menghadapi pengungsian, blokade, dan kekerasan selama puluhan tahun.</p>
+    <p>Dukungan kita tidak memilih sisi yang membenci — kita memilih sisi yang mencintai kemanusiaan. Suarakan, doakan, bantu dengan apa yang kita bisa.</p>
+  </div>
+  <div class="about-visual">
+    <div class="map-art"></div>
+    <div class="map-label" style="color:rgba(255,255,255,.7); font-size:1.1rem; margin-top: 240px;">فلسطين</div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section reveal">
+  <blockquote>
+    "Kami tidak minta belas kasihan. Kami minta keadilan dan hak kami untuk hidup di tanah leluhur kami."
+  </blockquote>
+  <p class="quote-attr">— Suara Rakyat Palestina</p>
+</section>
+
+<!-- LINKS -->
+<section class="links-section reveal" id="links">
+  <p class="section-eyebrow">Ambil Tindakan Nyata</p>
+  <h2 class="section-title">Apa yang <em>Bisa</em><br/>Kamu Lakukan</h2>
+  <p class="links-intro">
+    Setiap tindakan berarti — dari donasi, berbagi informasi, hingga menekan pemerintah. Berikut sumber-sumber terpercaya untuk mendukung Palestina.
+  </p>
+
+  <div class="links-grid" id="donasi">
+
+    <!-- DONASI -->
+    <a class="link-card" data-cat="bantuan" href="https://www.unrwa.org/donate" target="_blank" rel="noopener">
+      <span class="link-card-cat">💰 Donasi</span>
+      <span class="link-card-title">UNRWA — PBB</span>
+      <span class="link-card-desc">Badan PBB untuk pengungsi Palestina. Donasi langsung untuk bantuan makanan, kesehatan, dan pendidikan.</span>
+    </a>
+
+    <a class="link-card" data-cat="bantuan" href="https://www.pcrf.net/" target="_blank" rel="noopener">
+      <span class="link-card-cat">🏥 Donasi</span>
+      <span class="link-card-title">PCRF — Bantuan Medis Anak</span>
+      <span class="link-card-desc">Palestine Children's Relief Fund — menyediakan perawatan medis untuk anak-anak Palestina.</span>
+    </a>
+
+    <a class="link-card" data-cat="bantuan" href="https://www.map.org.uk/donate/donate" target="_blank" rel="noopener">
+      <span class="link-card-cat">🩺 Donasi</span>
+      <span class="link-card-title">MAP — Medical Aid</span>
+      <span class="link-card-desc">Medical Aid for Palestinians — mengirim tim medis dan perlengkapan ke Gaza dan Tepi Barat.</span>
+    </a>
+
+    <a class="link-card" data-cat="bantuan" href="https://www.islamic-relief.org/palestine" target="_blank" rel="noopener">
+      <span class="link-card-cat">🤲 Donasi</span>
+      <span class="link-card-title">Islamic Relief</span>
+      <span class="link-card-desc">Lembaga kemanusiaan internasional dengan program darurat aktif di Palestina.</span>
+    </a>
+
+    <!-- MEDIA -->
+    <a class="link-card" data-cat="media" href="https://www.aljazeera.com/where/palestine/" target="_blank" rel="noopener">
+      <span class="link-card-cat">📺 Berita</span>
+      <span class="link-card-title">Al Jazeera — Palestine</span>
+      <span class="link-card-desc">Liputan berita terkini dan mendalam tentang situasi di Palestina dari jurnalis lapangan.</span>
+    </a>
+
+    <a class="link-card" data-cat="media" href="https://mondoweiss.net/" target="_blank" rel="noopener">
+      <span class="link-card-cat">📰 Berita</span>
+      <span class="link-card-title">Mondoweiss</span>
+      <span class="link-card-desc">Jurnalisme independen yang berfokus pada konflik Israel-Palestina dan gerakan BDS.</span>
+    </a>
+
+    <!-- HAK ASASI -->
+    <a class="link-card" data-cat="hak" href="https://www.amnesty.org/en/location/middle-east-and-north-africa/middle-east/israel-and-occupied-palestinian-territories/" target="_blank" rel="noopener">
+      <span class="link-card-cat">⚖️ Hak Asasi</span>
+      <span class="link-card-title">Amnesty International</span>
+      <span class="link-card-desc">Laporan dan kampanye Amnesty tentang pelanggaran HAM di wilayah Palestina.</span>
+    </a>
+
+    <a class="link-card" data-cat="hak" href="https://www.hrw.org/middle-east/n-africa/israel/palestine" target="_blank" rel="noopener">
+      <span class="link-card-cat">⚖️ Hak Asasi</span>
+      <span class="link-card-title">Human Rights Watch</span>
+      <span class="link-card-desc">Dokumentasi pelanggaran HAM dan advokasi global untuk rakyat Palestina.</span>
+    </a>
+
+    <!-- AKSI -->
+    <a class="link-card" data-cat="aksi" href="https://bdsmovement.net/" target="_blank" rel="noopener">
+      <span class="link-card-cat">✊ Aksi</span>
+      <span class="link-card-title">BDS Movement</span>
+      <span class="link-card-desc">Gerakan Boikot, Divestasi, dan Sanksi — panduan aksi ekonomi dan sipil damai global.</span>
+    </a>
+
+    <a class="link-card" data-cat="aksi" href="https://www.avaaz.org/page/en/stop_the_war_on_gaza_f/" target="_blank" rel="noopener">
+      <span class="link-card-cat">📣 Petisi</span>
+      <span class="link-card-title">Avaaz — Tanda Tangan</span>
+      <span class="link-card-desc">Petisi global mendesak gencatan senjata dan perlindungan warga sipil Palestina.</span>
+    </a>
+
+    <a class="link-card" data-cat="aksi" href="https://www.un.org/unispal/" target="_blank" rel="noopener">
+      <span class="link-card-cat">🌐 PBB</span>
+      <span class="link-card-title">UNISPAL — PBB</span>
+      <span class="link-card-desc">Pusat dokumen resmi PBB tentang masalah Palestina, resolusi, dan proses perdamaian.</span>
+    </a>
+
+    <a class="link-card" data-cat="bantuan" href="https://gazafunds.com/" target="_blank" rel="noopener">
+      <span class="link-card-cat">💚 Donasi</span>
+      <span class="link-card-title">Gaza Funds</span>
+      <span class="link-card-desc">Direktori donasi terpercaya khusus untuk warga Gaza yang membutuhkan bantuan langsung.</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section reveal">
+  <p class="section-eyebrow">Mengapa Kita Berdiri</p>
+  <h2 class="section-title">Nilai yang <em>Kita</em> Junjung</h2>
+  <div class="values-grid">
+    <div class="value-item reveal">
+      <div class="value-icon">🕊️</div>
+      <div class="value-title">Perdamaian</div>
+      <div class="value-desc">Kami percaya pada resolusi damai dan penghormatan terhadap semua nyawa manusia tanpa pengecualian.</div>
+    </div>
+    <div class="value-item reveal">
+      <div class="value-icon">⚖️</div>
+      <div class="value-title">Keadilan</div>
+      <div class="value-desc">Hukum internasional dan hak asasi manusia harus ditegakkan untuk semua — tanpa terkecuali.</div>
+    </div>
+    <div class="value-item reveal">
+      <div class="value-icon">🗣️</div>
+      <div class="value-title">Suara</div>
+      <div class="value-desc">Setiap orang berhak untuk berbicara, didengar, dan menyampaikan kebenaran tanpa represi.</div>
+    </div>
+    <div class="value-item reveal">
+      <div class="value-icon">🤝</div>
+      <div class="value-title">Solidaritas</div>
+      <div class="value-desc">Penderitaan satu adalah penderitaan semua. Kemanusiaan kita terhubung melampaui batas negara.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">🕌 Berdiri Bersama Palestina</div>
+  <p class="footer-note">Website ini dibuat sebagai bentuk solidaritas kemanusiaan. Semua link mengarah ke organisasi terpercaya. Bagikan dengan siapapun yang peduli pada keadilan.</p>
+  <div class="footer-flag">
+    <span style="background:#000;"></span>
+    <span style="background:#fff;"></span>
+    <span style="background:#007a3d;"></span>
+    <span style="background:#ce1126;"></span>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for .reveal elements
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
 
